@@ -49,6 +49,12 @@ Partial Class FrmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
+        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConfigurationsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExtrasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TextFormaterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -102,8 +108,8 @@ Partial Class FrmMain
         'ToolStripLblSDSpaceInfo
         '
         Me.ToolStripLblSDSpaceInfo.Name = "ToolStripLblSDSpaceInfo"
-        Me.ToolStripLblSDSpaceInfo.Size = New System.Drawing.Size(97, 17)
-        Me.ToolStripLblSDSpaceInfo.Text = "50% Free (512KB)"
+        Me.ToolStripLblSDSpaceInfo.Size = New System.Drawing.Size(16, 17)
+        Me.ToolStripLblSDSpaceInfo.Text = "..."
         '
         'CmbCOM
         '
@@ -195,7 +201,7 @@ Partial Class FrmMain
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.OptionsToolStripMenuItem, Me.ExtrasToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(562, 24)
@@ -240,6 +246,45 @@ Partial Class FrmMain
         Me.LineShape1.X2 = 552
         Me.LineShape1.Y1 = 310
         Me.LineShape1.Y2 = 311
+        '
+        'FileToolStripMenuItem
+        '
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExitToolStripMenuItem})
+        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.FileToolStripMenuItem.Text = "File"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'OptionsToolStripMenuItem
+        '
+        Me.OptionsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigurationsToolStripMenuItem})
+        Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
+        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(61, 20)
+        Me.OptionsToolStripMenuItem.Text = "Options"
+        '
+        'ConfigurationsToolStripMenuItem
+        '
+        Me.ConfigurationsToolStripMenuItem.Name = "ConfigurationsToolStripMenuItem"
+        Me.ConfigurationsToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
+        Me.ConfigurationsToolStripMenuItem.Text = "Configurations"
+        '
+        'ExtrasToolStripMenuItem
+        '
+        Me.ExtrasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextFormaterToolStripMenuItem})
+        Me.ExtrasToolStripMenuItem.Name = "ExtrasToolStripMenuItem"
+        Me.ExtrasToolStripMenuItem.Size = New System.Drawing.Size(49, 20)
+        Me.ExtrasToolStripMenuItem.Text = "Extras"
+        '
+        'TextFormaterToolStripMenuItem
+        '
+        Me.TextFormaterToolStripMenuItem.Name = "TextFormaterToolStripMenuItem"
+        Me.TextFormaterToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.TextFormaterToolStripMenuItem.Text = "Text Formater"
         '
         'FrmMain
         '
@@ -292,4 +337,10 @@ Partial Class FrmMain
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
     Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents OptionsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ConfigurationsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ExtrasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TextFormaterToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

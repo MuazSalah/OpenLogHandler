@@ -40,6 +40,8 @@
                 MySerialPort = COMSerialPort
                 SD_FULL_Size = OpenLog.ReadSDSize()
 
+                RefereshFilesList()
+
 
                 CmdRead.Enabled = True
                 CmdRead.Focus()
@@ -180,7 +182,7 @@
 
             fileSize = OpenLog.LogFiles(LstLogFiles.SelectedItems.Item(0).Index).Size
 
-            tmpstr = OpenLog.ReadData(LstLogFiles.SelectedItems.Item(0).Text, fileSize)
+            tmpstr = OpenLog.ReadData(LstLogFiles.SelectedItems.Item(0).Index)
 
             LogMessage("Done!", LogMessageState._Normal)
 
