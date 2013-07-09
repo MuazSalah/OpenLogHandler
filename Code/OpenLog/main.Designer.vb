@@ -44,17 +44,17 @@ Partial Class FrmMain
         Me.TmrReadTimeOut = New System.Windows.Forms.Timer(Me.components)
         Me.TxtTerminal = New System.Windows.Forms.TextBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
-        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfigurationsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExtrasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TextFormaterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
+        Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -156,7 +156,7 @@ Partial Class FrmMain
         'ColumnHeader1
         '
         Me.ColumnHeader1.Text = "File Name"
-        Me.ColumnHeader1.Width = 61
+        Me.ColumnHeader1.Width = 98
         '
         'MarkForDeletionToolStripMenuItem
         '
@@ -170,15 +170,15 @@ Partial Class FrmMain
         Me.LstLogFiles.FullRowSelect = True
         Me.LstLogFiles.Location = New System.Drawing.Point(12, 80)
         Me.LstLogFiles.Name = "LstLogFiles"
-        Me.LstLogFiles.Size = New System.Drawing.Size(156, 225)
+        Me.LstLogFiles.Size = New System.Drawing.Size(176, 225)
         Me.LstLogFiles.TabIndex = 23
         Me.LstLogFiles.UseCompatibleStateImageBehavior = False
         Me.LstLogFiles.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader2
         '
-        Me.ColumnHeader2.Text = "File Size (Bytes)"
-        Me.ColumnHeader2.Width = 89
+        Me.ColumnHeader2.Text = "Size (B)"
+        Me.ColumnHeader2.Width = 51
         '
         'TxtLog
         '
@@ -192,11 +192,11 @@ Partial Class FrmMain
         '
         'TxtTerminal
         '
-        Me.TxtTerminal.Location = New System.Drawing.Point(174, 80)
+        Me.TxtTerminal.Location = New System.Drawing.Point(194, 80)
         Me.TxtTerminal.Multiline = True
         Me.TxtTerminal.Name = "TxtTerminal"
         Me.TxtTerminal.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TxtTerminal.Size = New System.Drawing.Size(382, 225)
+        Me.TxtTerminal.Size = New System.Drawing.Size(362, 225)
         Me.TxtTerminal.TabIndex = 21
         '
         'MenuStrip1
@@ -207,6 +207,19 @@ Partial Class FrmMain
         Me.MenuStrip1.Size = New System.Drawing.Size(562, 24)
         Me.MenuStrip1.TabIndex = 24
         Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'FileToolStripMenuItem
+        '
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExitToolStripMenuItem})
+        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.FileToolStripMenuItem.Text = "File"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(92, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'EditToolStripMenuItem
         '
@@ -219,46 +232,6 @@ Partial Class FrmMain
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(162, 6)
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 48)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(60, 13)
-        Me.Label1.TabIndex = 29
-        Me.Label1.Text = "COM Port: "
-        '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(562, 435)
-        Me.ShapeContainer1.TabIndex = 30
-        Me.ShapeContainer1.TabStop = False
-        '
-        'LineShape1
-        '
-        Me.LineShape1.Name = "LineShape1"
-        Me.LineShape1.X1 = 22
-        Me.LineShape1.X2 = 552
-        Me.LineShape1.Y1 = 310
-        Me.LineShape1.Y2 = 311
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExitToolStripMenuItem})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'OptionsToolStripMenuItem
         '
@@ -283,8 +256,35 @@ Partial Class FrmMain
         'TextFormaterToolStripMenuItem
         '
         Me.TextFormaterToolStripMenuItem.Name = "TextFormaterToolStripMenuItem"
-        Me.TextFormaterToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.TextFormaterToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.TextFormaterToolStripMenuItem.Text = "Text Formater"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(12, 48)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(60, 13)
+        Me.Label1.TabIndex = 29
+        Me.Label1.Text = "COM Port: "
+        '
+        'ShapeContainer1
+        '
+        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
+        Me.ShapeContainer1.Name = "ShapeContainer1"
+        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape1})
+        Me.ShapeContainer1.Size = New System.Drawing.Size(562, 435)
+        Me.ShapeContainer1.TabIndex = 30
+        Me.ShapeContainer1.TabStop = False
+        '
+        'LineShape1
+        '
+        Me.LineShape1.Name = "LineShape1"
+        Me.LineShape1.X1 = 1
+        Me.LineShape1.X2 = 552
+        Me.LineShape1.Y1 = 311
+        Me.LineShape1.Y2 = 311
         '
         'FrmMain
         '
@@ -301,6 +301,7 @@ Partial Class FrmMain
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ShapeContainer1)
+        Me.MinimumSize = New System.Drawing.Size(578, 473)
         Me.Name = "FrmMain"
         Me.Text = "OpenLog"
         Me.StatusStrip1.ResumeLayout(False)

@@ -70,7 +70,7 @@
         LstLogFiles.Height = Me.Height - 245
 
         TxtTerminal.Height = Me.Height - 245
-        TxtTerminal.Width = Me.Width - 200
+        TxtTerminal.Width = Me.Width - 220
 
         LineShape1.X1 = 0
         LineShape1.X2 = Me.Width - 10
@@ -94,15 +94,21 @@
         Try
 
             If (CheckSerialPort(COMSerialPort, CmbCOM.Text)) Then
+                'Close an already open COM port <if any>
+                ' This is defined in RS232.vb
+                'CloseSerial()
+
+                'Add user friendly touch
                 LogMessage("Serial port " + CmbCOM.Text + " selected!", LogMessageState._Ok)
 
+                'Choose the newly selected COM port
                 COMSerialPort.PortName = CmbCOM.Text
 
+                'Assign
                 MySerialPort = COMSerialPort
-                'OpenLog.ReadSDInfo()
 
 
-
+                'Enable Reading
                 CmdRead.Enabled = True
                 CmdRead.Focus()
 
@@ -113,7 +119,7 @@
             End If
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            LogMessage(ex.Message, LogMessageState._Error)
         End Try
     End Sub
 
@@ -230,7 +236,7 @@
 
 #Region "Log Message Functions"
 
-
+    'Log Message states which are specified by the calling function
     Enum LogMessageState
         _Normal
         _Ok
@@ -239,6 +245,9 @@
     End Enum
 
 
+    'Log message will take a message string and a message state and will display it
+    ' for the user color coded according to the message state, the message will be timed
+    ' as well
     Public Sub LogMessage(ByVal message As String, ByVal state As LogMessageState)
 
         Dim tmp1, tmp2 As Integer
@@ -247,14 +256,17 @@
         ' Get the text from your rich text box
         Dim tmpstr As String = TxtLog.Rtf
 
-        TxtLog.AppendText(GetTime() & message & Environment.NewLine)
+        'Get a string of the current time HH:MM:SS, append the message followed by new line
+        TxtLog.AppendText(GetTime() & " | " & message & Environment.NewLine)
 
-
+        'Select the last line
         tmp1 = TxtLog.Text.Length - message.Length - TimeStringLength - 1
         tmp2 = TxtLog.Text.Length - tmp1 - 1
 
         TxtLog.Select(tmp1, tmp2)
 
+
+        ' color the text according to the message state
         Select Case (state)
 
             Case LogMessageState._Normal
@@ -274,15 +286,17 @@
 
 
 
-
+        'Put the cursor at the end of the text box
         TxtLog.Select(TxtLog.Text.Length, 0)
 
+        'Scroll down to the cursor to keep the last lines visible
         TxtLog.ScrollToCaret()
-        TxtLog.Refresh()
+        'TxtLog.Refresh()
 
     End Sub
 
 
+    'Function to format the current time into a user friendly look "HH:MM:SS"
     Private Function GetTime() As String
 
         Dim tmpstr As String
@@ -301,9 +315,9 @@
 
 
         If System.DateTime.Now.Second < 10 Then
-            tmpstr += "0" + System.DateTime.Now.Second.ToString() + " | "
+            tmpstr += "0" + System.DateTime.Now.Second.ToString()
         Else
-            tmpstr += System.DateTime.Now.Second.ToString() + " | "
+            tmpstr += System.DateTime.Now.Second.ToString()
         End If
 
         Return tmpstr
@@ -320,6 +334,8 @@
 
     Private Sub CmdRead_Click(sender As System.Object, e As System.EventArgs) Handles CmdRead.Click
 
+        'User activated referesh of the list
+
         Me.Cursor = Cursors.WaitCursor
 
         LogMessage("Downloading files list ...", LogMessageState._Normal)
@@ -330,13 +346,14 @@
 
         Me.Cursor = Cursors.Default
 
-        CmdRead.Enabled = False
-
-
     End Sub
 
 
 
+
+    'Function to refresh the files list
+    ' it will read the current files from OpenLog and list them on the
+    ' list box
     Private Sub RefereshFilesList()
 
         Dim i As Integer = 0
@@ -344,13 +361,19 @@
 
 
         Try
+
+            'Update the OpenLog object with the latest data on the SD card
             OpenLog.ReadFilesList()
 
+            'Visual on the ProgressBar on the main window
             UpdateProgress(0)
 
 
+            'Reset the contents of the FilesList list box
+            ResetFilesList()
 
 
+            'Add the file names and sizes to the List box
             For Each item In OpenLog.LogFiles
 
                 LstLogFiles.Items.Add(OpenLog.LogFiles(i).Name)
@@ -369,12 +392,13 @@
             SD_USED_Size /= 1000
 
 
-
+            'Calculate the used percentage of the SD
             Used_SD_Percentage = (SD_USED_Size / SD_FULL_Size) * 100
             ToolStripPrgBarSDSpace.Value = Used_SD_Percentage
             ToolStripLblSDSpaceInfo.Text = Math.Round(Used_SD_Percentage, 2).ToString() +
                 "% is used"
 
+            'If we get to here, we are definetly ONLINE with the OpenLog
             ToolStripLblOnlineState.Text = "Online"
             ToolStripLblOnlineState.ForeColor = Color.Green
 
@@ -388,9 +412,14 @@
     End Sub
 
 
-    Private Sub LstLogFiles_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles LstLogFiles.SelectedIndexChanged
+
+    Private Sub ResetFilesList()
+
+        LstLogFiles.Items().Clear()
+
 
     End Sub
+
 
     Private Sub MarkForDeletionToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles MarkForDeletionToolStripMenuItem.Click
         LstLogFiles.CheckBoxes = True

@@ -220,6 +220,10 @@ Public Class OpenLogHandler
         Dim str1(), str2() As String
 
 
+        'Reset the Files List
+        _LogFiles.Clear()
+
+
         ' Send command to list the files "ls"
         ListFiles()
 
