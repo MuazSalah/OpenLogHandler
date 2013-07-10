@@ -33,7 +33,6 @@ Partial Class FrmMain
         Me.ToolStripLblSDSpaceInfo = New System.Windows.Forms.ToolStripStatusLabel()
         Me.CmbCOM = New System.Windows.Forms.ComboBox()
         Me.PrgReadProgress = New System.Windows.Forms.ProgressBar()
-        Me.CmdRead = New System.Windows.Forms.Button()
         Me.CancelDeletionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteFileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -55,6 +54,8 @@ Partial Class FrmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
+        Me.CmdReadCOMPorts = New System.Windows.Forms.Button()
+        Me.CmdRead = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -125,19 +126,6 @@ Partial Class FrmMain
         Me.PrgReadProgress.Name = "PrgReadProgress"
         Me.PrgReadProgress.Size = New System.Drawing.Size(288, 37)
         Me.PrgReadProgress.TabIndex = 27
-        '
-        'CmdRead
-        '
-        Me.CmdRead.Image = Global.OpenLog.My.Resources.Resources._327_Options_16x16_72
-        Me.CmdRead.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.CmdRead.Location = New System.Drawing.Point(174, 36)
-        Me.CmdRead.Name = "CmdRead"
-        Me.CmdRead.Size = New System.Drawing.Size(84, 37)
-        Me.CmdRead.TabIndex = 26
-        Me.CmdRead.Text = "Read Files"
-        Me.CmdRead.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.CmdRead.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
-        Me.CmdRead.UseVisualStyleBackColor = True
         '
         'CancelDeletionToolStripMenuItem
         '
@@ -286,11 +274,37 @@ Partial Class FrmMain
         Me.LineShape1.Y1 = 311
         Me.LineShape1.Y2 = 311
         '
+        'CmdReadCOMPorts
+        '
+        Me.CmdReadCOMPorts.Image = Global.OpenLog.My.Resources.Resources._112_RefreshArrow_Green_16x16_72
+        Me.CmdReadCOMPorts.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.CmdReadCOMPorts.Location = New System.Drawing.Point(165, 42)
+        Me.CmdReadCOMPorts.Name = "CmdReadCOMPorts"
+        Me.CmdReadCOMPorts.Size = New System.Drawing.Size(25, 25)
+        Me.CmdReadCOMPorts.TabIndex = 31
+        Me.CmdReadCOMPorts.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.CmdReadCOMPorts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.CmdReadCOMPorts.UseVisualStyleBackColor = True
+        '
+        'CmdRead
+        '
+        Me.CmdRead.Image = Global.OpenLog.My.Resources.Resources._327_Options_16x16_72
+        Me.CmdRead.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.CmdRead.Location = New System.Drawing.Point(194, 36)
+        Me.CmdRead.Name = "CmdRead"
+        Me.CmdRead.Size = New System.Drawing.Size(64, 37)
+        Me.CmdRead.TabIndex = 26
+        Me.CmdRead.Text = "Read Files"
+        Me.CmdRead.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.CmdRead.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.CmdRead.UseVisualStyleBackColor = True
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(562, 435)
+        Me.Controls.Add(Me.CmdReadCOMPorts)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.CmbCOM)
         Me.Controls.Add(Me.PrgReadProgress)
@@ -344,4 +358,5 @@ Partial Class FrmMain
     Friend WithEvents ConfigurationsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExtrasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TextFormaterToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CmdReadCOMPorts As System.Windows.Forms.Button
 End Class

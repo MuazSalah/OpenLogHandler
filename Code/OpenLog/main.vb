@@ -12,48 +12,21 @@
 #Region "Main window functions"
 
 
-
+    'Initilizations of user objects at Form start
     Private Sub FrmMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
 
 
         LogMessage("Initializing ...", LogMessageState._Normal)
 
+
         Try 'Try to open last used port,
 
-            LogMessage("Reading available COM Ports ...", LogMessageState._Normal)
-            CmbCOM.Items.AddRange(IO.Ports.SerialPort.GetPortNames)
+            ReadAvailableCOMPorts()
 
-            LogMessage("Checking previous port selection [" + My.Resources.COMPort + "] ...", LogMessageState._Normal)
+            LogMessage("Checking previous port selection [" + My.Settings.COMPort + "] ...", LogMessageState._Normal)
 
-            If (CheckSerialPort(COMSerialPort, My.Resources.COMPort)) Then
-                'if opening succeded, select the port
-                ' and log success
-
-                LogMessage("Previously used port [" + COMSerialPort.PortName + "] is available!", LogMessageState._Ok)
-                LogMessage("[" + COMSerialPort.PortName + "] selected", LogMessageState._Normal)
-
-                CmbCOM.Text = COMSerialPort.PortName
-
-
-
-                MySerialPort = COMSerialPort
-                SD_FULL_Size = OpenLog.ReadSDSize()
-
-                RefereshFilesList()
-
-
-                CmdRead.Enabled = True
-                CmdRead.Focus()
-
-                LogMessage("Ready to read serial data", LogMessageState._Ok)
-
-            Else
-                LogMessage("Port is unavailable, please choose correct COM port from the list", LogMessageState._Warning)
-
-                CmdRead.Enabled = False
-                CmbCOM.Text = "COM Port"
-            End If
+            CheckAndSelectCOMPort(My.Settings.COMPort)
 
 
         Catch ex As Exception
@@ -65,7 +38,7 @@
     End Sub
 
 
-
+    'Reshape the controls when the user changes the window size
     Private Sub FrmMain_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize
         LstLogFiles.Height = Me.Height - 245
 
@@ -93,30 +66,7 @@
     Private Sub CmbCOM_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles CmbCOM.SelectedIndexChanged
         Try
 
-            If (CheckSerialPort(COMSerialPort, CmbCOM.Text)) Then
-                'Close an already open COM port <if any>
-                ' This is defined in RS232.vb
-                'CloseSerial()
-
-                'Add user friendly touch
-                LogMessage("Serial port " + CmbCOM.Text + " selected!", LogMessageState._Ok)
-
-                'Choose the newly selected COM port
-                COMSerialPort.PortName = CmbCOM.Text
-
-                'Assign
-                MySerialPort = COMSerialPort
-
-
-                'Enable Reading
-                CmdRead.Enabled = True
-                CmdRead.Focus()
-
-
-
-            Else
-                LogMessage("Opening serial port " + CmbCOM.Text + " failed, is the port used by another application?", LogMessageState._Error)
-            End If
+            CheckAndSelectCOMPort(CmbCOM.Text)
 
         Catch ex As Exception
             LogMessage(ex.Message, LogMessageState._Error)
@@ -129,10 +79,7 @@
 
 
 
-
-
-
-
+    'Progress Bar controller
     Public Sub UpdateProgress(ByVal val As Integer)
         If (val > 100) Then
             val = 100
@@ -146,18 +93,58 @@
 
 
 
+#Region "Serial Stuff"
+
+
+    'Refresh the COM ports list, clear and read current
+    Private Sub CmdReadCOMPorts_Click(sender As System.Object, e As System.EventArgs) Handles CmdReadCOMPorts.Click
+        CmbCOM.Items.Clear()
+        ReadAvailableCOMPorts()
+    End Sub
 
 
 
+    'Read the available COM ports and add them to the Combo Box
+    Private Sub ReadAvailableCOMPorts()
+        LogMessage("Reading available COM Ports ...", LogMessageState._Normal)
+        CmbCOM.Items.AddRange(IO.Ports.SerialPort.GetPortNames)
+    End Sub
 
 
-    Private Function CheckSerialPort(ByRef SerialPortHandle As System.IO.Ports.SerialPort, ByVal PortName As String) As Boolean
+
+    'Take a COM port name, then check if it is Open-able
+    ' if so, do open and select it
+    Private Sub CheckAndSelectCOMPort(ByVal PortName As String)
+
+        If (CheckSerialPort(PortName)) Then
+            'if opening succeded, select the port
+            ' and log success
+            SelectCOMPort(PortName)
+
+        Else
+            LogMessage("Port is unavailable, please choose correct COM port from the list", LogMessageState._Warning)
+
+            CmdRead.Enabled = False
+        End If
+
+    End Sub
+
+
+
+    'Try to open a serual port to see if it is available
+    Private Function CheckSerialPort(ByVal PortName As String) As Boolean
 
         Try
+            'Close any previous open COM port if any
+            If (COMSerialPort.IsOpen) Then
+                COMSerialPort.Close()
+            End If
+
             COMSerialPort.PortName = PortName
             COMSerialPort.Open()
             COMSerialPort.Close()
-        Catch ex As Exception
+        Catch ex As Exception 'Opening the port Failed
+            LogMessage("CheckSerialPort:" + ex.Message, LogMessageState._Error)
             Return False
         End Try
 
@@ -167,44 +154,179 @@
 
 
 
-
-
-
-
-
-
-
-
-    Private Sub LstLogFiles_DoubleClick(sender As Object, e As System.EventArgs) Handles LstLogFiles.DoubleClick
-
-        Dim tmpstr As String
-        Dim fileSize As Integer
+    'Open and select a COM port
+    Private Sub SelectCOMPort(ByVal PortName As String)
 
         Try
-            Me.Cursor = Cursors.WaitCursor
+            'Set the PortName, this is not really needed, because if we are here
+            ' we have already used CheckPort functions which needs to set
+            ' the same Port Name
+            COMSerialPort.PortName = PortName
+
+            'Assign the SerialPort object MySerialPort (used by RS232.vb)
+            MySerialPort = COMSerialPort
+
+            LogMessage("[" + COMSerialPort.PortName + "] selected", LogMessageState._Normal)
+
+            'Change the text of the Combo Box to the appropriate COM port name
+            CmbCOM.Text = COMSerialPort.PortName
+
+            'This is the first step which assumes that the serial IS connected to OpenLOG
+            ' The success of this can be used to auto-detect the correct COM port
+            ' If it failes, we should not continue
+            SD_FULL_Size = OpenLog.ReadSDSize()
+            ' Assuming that it IS openLOG
+            RefereshFilesList()
+
+            'Maybe the button is not needed any more if we are automatically refreshing
+            ' the files list
+            CmdRead.Enabled = True
+            CmdRead.Focus()
+
+            'Save the selection
+            My.Settings.COMPort = PortName
+
+            LogMessage("Ready to read serial data", LogMessageState._Ok)
+
+        Catch ex As Exception
+            LogMessage(ex.Message, LogMessageState._Error)
+        End Try
+
+
+    End Sub
+
+#End Region
+
+
+
+#Region "Reading files list"
+
+
+
+    'User activated referesh of the list
+    Private Sub CmdRead_Click(sender As System.Object, e As System.EventArgs) Handles CmdRead.Click
+
+        Me.Cursor = Cursors.WaitCursor
+
+        LogMessage("Downloading files list ...", LogMessageState._Normal)
+
+        RefereshFilesList()
+
+        LogMessage("Done donwloading!", LogMessageState._Normal)
+
+        Me.Cursor = Cursors.Default
+
+    End Sub
+
+
+
+
+    'Function to refresh the files list
+    ' it will read the current files from OpenLog and list them on the
+    ' list box
+    Private Sub RefereshFilesList()
+
+        Dim i As Integer = 0
+        Dim Used_SD_Percentage As Double
+
+
+        Try
+
+            'Update the OpenLog object with the latest data on the SD card
+            OpenLog.ReadFilesList()
+
+            'Visual on the ProgressBar on the main window
+            UpdateProgress(0)
+
+
+            'Reset the contents of the FilesList list box
+            LstLogFiles.Items().Clear()
+
+
+            'Add the file names and sizes to the List box
+            For Each item In OpenLog.LogFiles
+
+                LstLogFiles.Items.Add(OpenLog.LogFiles(i).Name)
+                LstLogFiles.Items.Item(i).SubItems.Add(OpenLog.LogFiles(i).Size)
+                SD_USED_Size += CInt(OpenLog.LogFiles(i).Size)
+
+                i += 1
+                UpdateProgress((i / OpenLog.LogFiles.Count) * 100)
+            Next
+
+
+
+
+
+            'Convert the read files sizes to KB (file size is returned in bytes)
+            SD_USED_Size /= 1000
+
+
+            'Calculate the used percentage of the SD
+            Used_SD_Percentage = (SD_USED_Size / SD_FULL_Size) * 100
+            ToolStripPrgBarSDSpace.Value = Used_SD_Percentage
+            ToolStripLblSDSpaceInfo.Text = Math.Round(Used_SD_Percentage, 2).ToString() +
+                "% is used"
+
+            'If we get to here, we are definetly ONLINE with the OpenLog
+            ToolStripLblOnlineState.Text = "Online"
+            ToolStripLblOnlineState.ForeColor = Color.Green
+
+
+
+        Catch ex As Exception
+            LogMessage(ex.Message, LogMessageState._Error)
+        End Try
+
+
+    End Sub
+
+
+#End Region
+
+
+
+
+#Region "Reading a file from the list"
+
+
+    'When the user double clicks on an item on the list box, open and read it to the text box
+    Private Sub LstLogFiles_DoubleClick(sender As Object, e As System.EventArgs) Handles LstLogFiles.DoubleClick
+
+        Me.Cursor = Cursors.WaitCursor
+
+        ReadOpenLogFile()
+
+        Me.Cursor = Cursors.Default
+
+    End Sub
+
+
+
+    'Read the contents of a single file to the Terminal Text box
+    Private Sub ReadOpenLogFile()
+        Dim tmpstr As String
+
+
+        Try
+
             LogMessage("Reading file '" + LstLogFiles.SelectedItems.Item(0).Text + "' from SD Card...", LogMessageState._Normal)
 
             UpdateProgress(0)
 
-            fileSize = OpenLog.LogFiles(LstLogFiles.SelectedItems.Item(0).Index).Size
-
+            'Store the text in a temporary string, this so as to separate the 
+            ' process of reading serial from the process of putting the string 
+            ' on the text box, both takes time!
             tmpstr = OpenLog.ReadData(LstLogFiles.SelectedItems.Item(0).Index)
-
-            LogMessage("Done!", LogMessageState._Normal)
-
-            TxtTerminal.Text = ""
-
 
             LogMessage("Displaying file Data", LogMessageState._Normal)
 
-
-
-
+            'Put the contents of the file on the text box
             TxtTerminal.Text = tmpstr
 
             LogMessage("Done!", LogMessageState._Ok)
 
-            Me.Cursor = Cursors.Default
+
 
         Catch ex As Exception
 
@@ -214,16 +336,9 @@
             ToolStripLblOnlineState.ForeColor = Color.Red
 
         End Try
-
-
     End Sub
 
-
-
-
-
-
-
+#End Region
 
 
 
@@ -332,131 +447,58 @@
 
 
 
-    Private Sub CmdRead_Click(sender As System.Object, e As System.EventArgs) Handles CmdRead.Click
 
-        'User activated referesh of the list
-
-        Me.Cursor = Cursors.WaitCursor
-
-        LogMessage("Downloading files list ...", LogMessageState._Normal)
-
-        RefereshFilesList()
-
-        LogMessage("Done donwloading!", LogMessageState._Normal)
-
-        Me.Cursor = Cursors.Default
-
-    End Sub
-
-
-
-
-    'Function to refresh the files list
-    ' it will read the current files from OpenLog and list them on the
-    ' list box
-    Private Sub RefereshFilesList()
-
-        Dim i As Integer = 0
-        Dim Used_SD_Percentage As Double
-
-
-        Try
-
-            'Update the OpenLog object with the latest data on the SD card
-            OpenLog.ReadFilesList()
-
-            'Visual on the ProgressBar on the main window
-            UpdateProgress(0)
-
-
-            'Reset the contents of the FilesList list box
-            ResetFilesList()
-
-
-            'Add the file names and sizes to the List box
-            For Each item In OpenLog.LogFiles
-
-                LstLogFiles.Items.Add(OpenLog.LogFiles(i).Name)
-                LstLogFiles.Items.Item(i).SubItems.Add(OpenLog.LogFiles(i).Size)
-                SD_USED_Size += CInt(OpenLog.LogFiles(i).Size)
-
-                i += 1
-                UpdateProgress((i / OpenLog.LogFiles.Count) * 100)
-            Next
-
-
-
-
-
-            'Convert the read files sizes to KB (file size is returned in bytes)
-            SD_USED_Size /= 1000
-
-
-            'Calculate the used percentage of the SD
-            Used_SD_Percentage = (SD_USED_Size / SD_FULL_Size) * 100
-            ToolStripPrgBarSDSpace.Value = Used_SD_Percentage
-            ToolStripLblSDSpaceInfo.Text = Math.Round(Used_SD_Percentage, 2).ToString() +
-                "% is used"
-
-            'If we get to here, we are definetly ONLINE with the OpenLog
-            ToolStripLblOnlineState.Text = "Online"
-            ToolStripLblOnlineState.ForeColor = Color.Green
-
-
-
-        Catch ex As Exception
-            LogMessage(ex.Message, LogMessageState._Error)
-        End Try
-
-
-    End Sub
-
-
-
-    Private Sub ResetFilesList()
-
-        LstLogFiles.Items().Clear()
-
-
-    End Sub
-
-
+#Region "Delete Files"
+    'Menu option, when selected it will enable selecting files to be deleted from the SD card
     Private Sub MarkForDeletionToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles MarkForDeletionToolStripMenuItem.Click
+        'Enable check boxes on the list
         LstLogFiles.CheckBoxes = True
+        'Enable supporting menu items
         DeleteFileToolStripMenuItem.Enabled = True
         CancelDeletionToolStripMenuItem.Enabled = True
     End Sub
 
+    'Delete the selected files on the list box from OpenLOG
     Private Sub DeleteFileToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DeleteFileToolStripMenuItem.Click
 
         Dim FilesToBeDeleted As String = ""
 
-        For Each item In LstLogFiles.CheckedIndices
-            FilesToBeDeleted += LstLogFiles.Items.Item(item).text + vbNewLine
-        Next
-
-
-        If (MessageBox.Show("Are you sure you want to delete these files?" + vbNewLine + FilesToBeDeleted, "Confirm file deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes) Then
+        Try
             For Each item In LstLogFiles.CheckedIndices
-
-                OpenLog.DeleteFile(LstLogFiles.Items.Item(item).text)
-                LstLogFiles.Items.Item(item).checked = False
-                LstLogFiles.Items.RemoveAt(item)
-
+                FilesToBeDeleted += LstLogFiles.Items.Item(item).text + vbNewLine
             Next
-        Else
-            CancelDeletionToolStripMenuItem_Click(sender, e)
-        End If
 
 
-
-
+            If (MessageBox.Show("Are you sure you want to delete these files?" + vbNewLine + FilesToBeDeleted, "Confirm file deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes) Then
+                For Each item In LstLogFiles.CheckedIndices
+                    'Delete the file from OpenLog
+                    OpenLog.DeleteFile(LstLogFiles.Items.Item(item).text)
+                    'Remove the check mark as the entry has been processed
+                    LstLogFiles.Items.Item(item).checked = False
+                    'Remove the file entry from the list
+                    LstLogFiles.Items.RemoveAt(item)
+                Next
+            Else 'If the user selects not to delete
+                CancelDeletionToolStripMenuItem_Click(sender, e)
+            End If
+        Catch ex As Exception
+            LogMessage(ex.Message, LogMessageState._Error)
+        End Try
 
     End Sub
 
+    'Cancel deletion sequence and return to normal state
     Private Sub CancelDeletionToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CancelDeletionToolStripMenuItem.Click
         LstLogFiles.CheckBoxes = False
         DeleteFileToolStripMenuItem.Enabled = False
         CancelDeletionToolStripMenuItem.Enabled = False
     End Sub
+
+#End Region
+
+
+
+
+
+
 End Class
