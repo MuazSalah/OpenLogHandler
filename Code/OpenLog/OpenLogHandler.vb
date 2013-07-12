@@ -265,7 +265,8 @@ Public Class OpenLogHandler
     'Reads the file contents and returns it on a string
     Public Function ReadData(LogFileIndex As Integer) As String
 
-        'Dim tmpstr As String
+        'Clear existing data in the tx and rx buffers
+        RS232.ClearBuffers()
 
         'Send command for OpenLog to output file contents
         ReadFile(_LogFiles(LogFileIndex).Name)

@@ -119,7 +119,7 @@
 
         Me.Cursor = Cursors.WaitCursor
 
-        ReadOpenLogFile()
+        ReadOpenLogFile(LstLogFiles.SelectedItems.Item(0).Index, LstLogFiles.SelectedItems.Item(0).Text)
 
         Me.Cursor = Cursors.Default
 
@@ -614,20 +614,20 @@
 #Region "Reading a file from the list"
 
     'Read the contents of a single file to the Terminal Text box
-    Private Sub ReadOpenLogFile()
+    Private Sub ReadOpenLogFile(ByVal _FileIndex As Integer, ByVal _FileName As String)
         Dim tmpstr As String
 
 
         Try
 
-            LogMessage("Reading file '" + LstLogFiles.SelectedItems.Item(0).Text + "' from SD Card...", LogMessageState._Normal)
+            LogMessage("Reading file '" + _FileName + "' from SD Card...", LogMessageState._Normal)
 
             UpdateProgress(0)
 
             'Store the text in a temporary string, this so as to separate the 
             ' process of reading serial from the process of putting the string 
             ' on the text box, both takes time!
-            tmpstr = OpenLog.ReadData(LstLogFiles.SelectedItems.Item(0).Index)
+            tmpstr = OpenLog.ReadData(_FileIndex)
 
             LogMessage("Displaying file Data", LogMessageState._Normal)
 
@@ -649,6 +649,7 @@
     End Sub
 
 #End Region
+
 
 
 

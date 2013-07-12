@@ -78,8 +78,11 @@ Module RS232
 
     End Function
 
-
-
+    'Clera RS232 Rx and Tx buffers
+    Public Sub ClearBuffers()
+        MySerialPort.DiscardInBuffer()
+        MySerialPort.DiscardOutBuffer()
+    End Sub
 
 
     'ReadSerialWithUpdate function, it will read characters till the first ">"
@@ -104,7 +107,7 @@ Module RS232
             Next
 
 
-            While ((Not (c = ">")) And (Not (CharCntr = fileSize)))
+            While ((Not (c = ">")) And (Not (CharCntr = fileSize - 2)))
                 'Read a Char
                 c = Chr(MySerialPort.ReadChar)
                 'Add it to a temporary string
@@ -117,8 +120,8 @@ Module RS232
             End While
 
             'Report that there is a difference in the read file
-            If CharCntr <> fileSize Then   'Due to improper reading of the streams, extra strings such as ">read DATA25.txt" are added to the actual file text, causing the file counter to read more than it should
-                FrmMain.LogMessage("File not read fully!! " + (fileSize - (CharCntr - 21)).ToString() + " bytes missing", FrmMain.LogMessageState._Error)
+            If CharCntr <> (fileSize - 2) Then   'Due to improper reading of the streams, extra strings such as ">read DATA25.txt" are added to the actual file text, causing the file counter to read more than it should
+                FrmMain.LogMessage("File not read fully!! " + (fileSize - (CharCntr - 23)).ToString() + " bytes missing", FrmMain.LogMessageState._Error)
             End If
 
 
