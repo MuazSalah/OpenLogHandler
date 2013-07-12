@@ -126,7 +126,10 @@ Public Class OpenLogHandler
 
 
 
-
+    Public Sub Prepare(ByVal _PortName As String)
+        'Open the selected COM port
+        RS232.OpenSerial(_PortName)
+    End Sub
 
 
 
@@ -148,10 +151,6 @@ Public Class OpenLogHandler
 
         Try
 
-
-            'Open the selected COM port
-            ' This line should be moved to a better place **********************
-            RS232.OpenSerial()
 
             'Get the OpenLOG to Command Mode
             CommandMode()
@@ -196,8 +195,8 @@ Public Class OpenLogHandler
             Return tmp_arr_size
 
         Catch ex As Exception
-            FrmMain.LogMessage(ex.Message, FrmMain.LogMessageState._Error)
-            Return 1
+            'FrmMain.LogMessage(ex.Message, FrmMain.LogMessageState._Error)
+            Return -1
         End Try
 
 
