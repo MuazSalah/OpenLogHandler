@@ -246,6 +246,12 @@
 #Region "Main: Menu Items"
 
 
+#Region "Edit"
+    Private Sub FindAndReplaceToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles FindAndReplaceToolStripMenuItem.Click
+        FrmFindAndReplace.Show()
+    End Sub
+
+#End Region
 
 #Region "Delete Files"
     'Menu option, when selected it will enable selecting files to be deleted from the SD card
@@ -310,6 +316,11 @@
 
 
 
+    Private Sub ExitToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ExitToolStripMenuItem.Click
+        Me.Close()
+        Me.Dispose()
+    End Sub
+    
 
 #End Region
 

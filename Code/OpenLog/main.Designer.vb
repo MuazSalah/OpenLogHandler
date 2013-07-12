@@ -23,6 +23,7 @@ Partial Class FrmMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         Me.COMSerialPort = New System.IO.Ports.SerialPort(Me.components)
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -50,13 +51,12 @@ Partial Class FrmMain
         Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfigurationsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AutoFindOpenLOGToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExtrasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TextFormaterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.CmdReadCOMPorts = New System.Windows.Forms.Button()
         Me.CmdRead = New System.Windows.Forms.Button()
+        Me.FindAndReplaceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -190,7 +190,7 @@ Partial Class FrmMain
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.OptionsToolStripMenuItem, Me.ExtrasToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.OptionsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(562, 24)
@@ -207,12 +207,12 @@ Partial Class FrmMain
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(92, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'EditToolStripMenuItem
         '
-        Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MarkForDeletionToolStripMenuItem, Me.DeleteFileToolStripMenuItem, Me.CancelDeletionToolStripMenuItem, Me.ToolStripSeparator1})
+        Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FindAndReplaceToolStripMenuItem, Me.ToolStripSeparator1, Me.MarkForDeletionToolStripMenuItem, Me.DeleteFileToolStripMenuItem, Me.CancelDeletionToolStripMenuItem})
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
@@ -231,6 +231,7 @@ Partial Class FrmMain
         '
         'ConfigurationsToolStripMenuItem
         '
+        Me.ConfigurationsToolStripMenuItem.Enabled = False
         Me.ConfigurationsToolStripMenuItem.Name = "ConfigurationsToolStripMenuItem"
         Me.ConfigurationsToolStripMenuItem.Size = New System.Drawing.Size(178, 22)
         Me.ConfigurationsToolStripMenuItem.Text = "Configurations"
@@ -243,19 +244,6 @@ Partial Class FrmMain
         Me.AutoFindOpenLOGToolStripMenuItem.Name = "AutoFindOpenLOGToolStripMenuItem"
         Me.AutoFindOpenLOGToolStripMenuItem.Size = New System.Drawing.Size(178, 22)
         Me.AutoFindOpenLOGToolStripMenuItem.Text = "AutoFind OpenLOG"
-        '
-        'ExtrasToolStripMenuItem
-        '
-        Me.ExtrasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextFormaterToolStripMenuItem})
-        Me.ExtrasToolStripMenuItem.Name = "ExtrasToolStripMenuItem"
-        Me.ExtrasToolStripMenuItem.Size = New System.Drawing.Size(49, 20)
-        Me.ExtrasToolStripMenuItem.Text = "Extras"
-        '
-        'TextFormaterToolStripMenuItem
-        '
-        Me.TextFormaterToolStripMenuItem.Name = "TextFormaterToolStripMenuItem"
-        Me.TextFormaterToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
-        Me.TextFormaterToolStripMenuItem.Text = "Text Formater"
         '
         'Label1
         '
@@ -286,7 +274,7 @@ Partial Class FrmMain
         '
         'CmdReadCOMPorts
         '
-        Me.CmdReadCOMPorts.Image = Global.OpenLog.My.Resources.Resources._112_RefreshArrow_Green_16x16_72
+        Me.CmdReadCOMPorts.Image = CType(resources.GetObject("CmdReadCOMPorts.Image"), System.Drawing.Image)
         Me.CmdReadCOMPorts.ImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.CmdReadCOMPorts.Location = New System.Drawing.Point(165, 42)
         Me.CmdReadCOMPorts.Name = "CmdReadCOMPorts"
@@ -299,7 +287,7 @@ Partial Class FrmMain
         'CmdRead
         '
         Me.CmdRead.Enabled = False
-        Me.CmdRead.Image = Global.OpenLog.My.Resources.Resources._327_Options_16x16_72
+        Me.CmdRead.Image = CType(resources.GetObject("CmdRead.Image"), System.Drawing.Image)
         Me.CmdRead.ImageAlign = System.Drawing.ContentAlignment.TopCenter
         Me.CmdRead.Location = New System.Drawing.Point(194, 36)
         Me.CmdRead.Name = "CmdRead"
@@ -309,6 +297,12 @@ Partial Class FrmMain
         Me.CmdRead.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.CmdRead.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.CmdRead.UseVisualStyleBackColor = True
+        '
+        'FindAndReplaceToolStripMenuItem
+        '
+        Me.FindAndReplaceToolStripMenuItem.Name = "FindAndReplaceToolStripMenuItem"
+        Me.FindAndReplaceToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
+        Me.FindAndReplaceToolStripMenuItem.Text = "Find and Replace"
         '
         'FrmMain
         '
@@ -367,8 +361,7 @@ Partial Class FrmMain
     Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents OptionsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ConfigurationsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ExtrasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TextFormaterToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CmdReadCOMPorts As System.Windows.Forms.Button
     Friend WithEvents AutoFindOpenLOGToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FindAndReplaceToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

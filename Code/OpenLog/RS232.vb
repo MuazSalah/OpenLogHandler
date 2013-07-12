@@ -106,7 +106,7 @@ Module RS232
                 c = Chr(MySerialPort.ReadChar)
             Next
 
-
+            ' -2 for ignoring the last two Ctrl+Z  characters at the end of the file
             While ((Not (c = ">")) And (Not (CharCntr = fileSize - 2)))
                 'Read a Char
                 c = Chr(MySerialPort.ReadChar)

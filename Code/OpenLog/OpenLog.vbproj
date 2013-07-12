@@ -132,6 +132,12 @@
     </Compile>
     <Compile Include="OpenLogHandler.vb" />
     <Compile Include="RS232.vb" />
+    <Compile Include="FindAndReplace.Designer.vb">
+      <DependentUpon>FindAndReplace.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FindAndReplace.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="main.resx">
@@ -142,6 +148,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindAndReplace.resx">
+      <DependentUpon>FindAndReplace.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
