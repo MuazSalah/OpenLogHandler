@@ -31,23 +31,23 @@
 
         Try
             'Attempt to Auto-find the COM Port
-            If (My.Settings.AutoFindOpenLOG) Then
-                'Force showing the main windows as the next operation will take time
-                Me.Show()
-                AutoFindOpenLOG()
+            'If (My.Settings.AutoFindOpenLOG) Then
+            'Force showing the main windows as the next operation will take time
+            ' Me.Show()
+            'AutoFindOpenLOG()
 
-            Else
-                'Try to open last used port
-                ReadAvailableCOMPorts()
-                LogMessage("Checking previous port selection [" + My.Settings.COMPort + "] ...", LogMessageState._Normal)
+            'Else
+            'Try to open last used port
+            ReadAvailableCOMPorts()
+            LogMessage("Checking previous port selection [" + My.Settings.COMPort + "] ...", LogMessageState._Normal)
 
-                'Check the previously selected COM port if it is available
-                ' If so, it is most probably the correct COM port
-                If (CheckAndSelectCOMPort(My.Settings.COMPort)) Then
-                    CheckIsOpenLOGPort(My.Settings.COMPort)
-                End If
-
+            'Check the previously selected COM port if it is available
+            ' If so, it is most probably the correct COM port
+            If (CheckAndSelectCOMPort(My.Settings.COMPort)) Then
+                CheckIsOpenLOGPort(My.Settings.COMPort)
             End If
+
+            'End If
 
 
 

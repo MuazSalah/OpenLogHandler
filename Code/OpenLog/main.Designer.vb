@@ -47,6 +47,7 @@ Partial Class FrmMain
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FindAndReplaceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfigurationsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -56,7 +57,6 @@ Partial Class FrmMain
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.CmdReadCOMPorts = New System.Windows.Forms.Button()
         Me.CmdRead = New System.Windows.Forms.Button()
-        Me.FindAndReplaceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -207,7 +207,7 @@ Partial Class FrmMain
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(92, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'EditToolStripMenuItem
@@ -216,6 +216,12 @@ Partial Class FrmMain
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
+        '
+        'FindAndReplaceToolStripMenuItem
+        '
+        Me.FindAndReplaceToolStripMenuItem.Name = "FindAndReplaceToolStripMenuItem"
+        Me.FindAndReplaceToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
+        Me.FindAndReplaceToolStripMenuItem.Text = "Find and Replace"
         '
         'ToolStripSeparator1
         '
@@ -243,6 +249,7 @@ Partial Class FrmMain
         Me.AutoFindOpenLOGToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.AutoFindOpenLOGToolStripMenuItem.Name = "AutoFindOpenLOGToolStripMenuItem"
         Me.AutoFindOpenLOGToolStripMenuItem.Size = New System.Drawing.Size(178, 22)
+        Me.AutoFindOpenLOGToolStripMenuItem.Tag = "Will try to Auto find OpenLOG when the Refresh button is pressed"
         Me.AutoFindOpenLOGToolStripMenuItem.Text = "AutoFind OpenLOG"
         '
         'Label1
@@ -280,6 +287,7 @@ Partial Class FrmMain
         Me.CmdReadCOMPorts.Name = "CmdReadCOMPorts"
         Me.CmdReadCOMPorts.Size = New System.Drawing.Size(25, 25)
         Me.CmdReadCOMPorts.TabIndex = 31
+        Me.CmdReadCOMPorts.Tag = "Refresh COM Ports"
         Me.CmdReadCOMPorts.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.CmdReadCOMPorts.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.CmdReadCOMPorts.UseVisualStyleBackColor = True
@@ -297,12 +305,6 @@ Partial Class FrmMain
         Me.CmdRead.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.CmdRead.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.CmdRead.UseVisualStyleBackColor = True
-        '
-        'FindAndReplaceToolStripMenuItem
-        '
-        Me.FindAndReplaceToolStripMenuItem.Name = "FindAndReplaceToolStripMenuItem"
-        Me.FindAndReplaceToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
-        Me.FindAndReplaceToolStripMenuItem.Text = "Find and Replace"
         '
         'FrmMain
         '
