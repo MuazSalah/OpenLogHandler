@@ -668,4 +668,8 @@
 
 
 
+    Private Sub AboutToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles AboutToolStripMenuItem.Click
+        MessageBox.Show("VB.NET Handler for Sparkfun's OpenLOG module" + vbNewLine +
+                        "Version: " + Me.ProductVersion, "Help")
+    End Sub
 End Class

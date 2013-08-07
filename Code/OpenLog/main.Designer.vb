@@ -57,6 +57,8 @@ Partial Class FrmMain
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
         Me.CmdReadCOMPorts = New System.Windows.Forms.Button()
         Me.CmdRead = New System.Windows.Forms.Button()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -70,9 +72,9 @@ Partial Class FrmMain
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripLblOnlineState, Me.ToolStripStatusLabel3, Me.ToolStripStatusLabel4, Me.ToolStripPrgBarSDSpace, Me.ToolStripLblSDSpaceInfo})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 413)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 424)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(562, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(570, 22)
         Me.StatusStrip1.TabIndex = 25
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -190,10 +192,10 @@ Partial Class FrmMain
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.OptionsToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.OptionsToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(562, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(570, 24)
         Me.MenuStrip1.TabIndex = 24
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -267,7 +269,7 @@ Partial Class FrmMain
         Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
         Me.ShapeContainer1.Name = "ShapeContainer1"
         Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.LineShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(562, 435)
+        Me.ShapeContainer1.Size = New System.Drawing.Size(570, 446)
         Me.ShapeContainer1.TabIndex = 30
         Me.ShapeContainer1.TabStop = False
         '
@@ -306,11 +308,24 @@ Partial Class FrmMain
         Me.CmdRead.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.CmdRead.UseVisualStyleBackColor = True
         '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem})
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'AboutToolStripMenuItem
+        '
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AboutToolStripMenuItem.Text = "About"
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(562, 435)
+        Me.ClientSize = New System.Drawing.Size(570, 446)
         Me.Controls.Add(Me.CmdReadCOMPorts)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.CmbCOM)
@@ -366,4 +381,6 @@ Partial Class FrmMain
     Friend WithEvents CmdReadCOMPorts As System.Windows.Forms.Button
     Friend WithEvents AutoFindOpenLOGToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents FindAndReplaceToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AboutToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
