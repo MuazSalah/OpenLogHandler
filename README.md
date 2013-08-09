@@ -7,6 +7,7 @@
 3. User Interface
 4. Supported devices
 5. References
+6. Contact
 
 ------------------------------------------------------------------------------------
 
@@ -14,6 +15,8 @@
 This is a Visual Basic .NET (2010) application which access to the 
 SD card contents (The files lists, files sizes, files contents) of the Sparkfun's 
 OpenLog module through a serial port
+
+The program is licensed under GPL V3
 	
 
 ------------------------------------------------------------------------------------
@@ -52,3 +55,8 @@ The following VS.NET has been tested:
 
 ##### OpenLog Sparkfun's product page
 https://www.sparkfun.com/products/9530
+
+------------------------------------------------------------------------------------
+
+### 6. Contact
+muaz2006@gmail.com
